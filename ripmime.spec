@@ -4,13 +4,12 @@
 Summary:	Extracts attachments out of mailpack format emails
 Name:		ripmime
 Version:	1.4.0.7
-Release:	%mkrel 0.dev.1
+Release:	%mkrel 1
 License:	BSD
 Group:		Networking/Mail
 URL:		http://www.pldaniels.com/ripmime/
-Source0:	http://www.pldaniels.com/ripmime/%{name}-1.4.0.6.tar.bz2
-Patch0:		ripmime-1.4.0.6-shared.diff
-Patch1:		ripmime-1.4-dev.diff
+Source0:	http://www.pldaniels.com/ripmime/%{name}-%{version}.tar.gz
+Patch0:		ripmime-shared.diff
 BuildRequires:	libtool
 BuildRequires:	libripole-devel
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -53,14 +52,14 @@ This package provides development files for the %{name} library.
 
 %prep
 
-%setup -q -n %{name}-1.4.0.6
+%setup -q -n %{name}-%{version}
 %patch0 -p0
-%patch1 -p1
 
 %build
+%serverbuild
 
 %make \
-    CFLAGS="%{optflags}" \
+    CFLAGS="$CFLAGS" \
     libdir=%{_libdir}
 
 %install
@@ -97,4 +96,3 @@ This package provides development files for the %{name} library.
 %{_libdir}/*.so
 %{_libdir}/*.a
 %{_libdir}/*.la
-
