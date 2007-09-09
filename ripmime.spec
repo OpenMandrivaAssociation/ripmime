@@ -1,17 +1,18 @@
 %define	major 1
-%define libname	%mklibname ripmime %{major}
+%define libname %mklibname ripmime %{major}
+%define develname %mklibname ripmime -d
 
 Summary:	Extracts attachments out of mailpack format emails
 Name:		ripmime
 Version:	1.4.0.7
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	BSD
 Group:		Networking/Mail
 URL:		http://www.pldaniels.com/ripmime/
 Source0:	http://www.pldaniels.com/ripmime/%{name}-%{version}.tar.gz
 Patch0:		ripmime-shared.diff
 BuildRequires:	libtool
-BuildRequires:	libripole-devel
+BuildRequires:	ripole-devel
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 
 %description
@@ -34,14 +35,15 @@ the attached files out of a MIME encoded email package.
 
 This package provides the shared %{name} library.
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Development files for the %{name} library
 Group:		Development/C
 Provides:	%{name}-devel = %{version}
 Provides:	lib%{name}-devel = %{version}
 Requires:	%{libname} = %{version}
+Obsoletes:	%{mklibname ripmime 1 -d}
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 ripMIME is a small program which has been developed as part of the
 commercial Xamime development (http://www.xamime.com).
 
@@ -88,7 +90,7 @@ This package provides development files for the %{name} library.
 %defattr(-,root,root)
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc TODO
 %dir %{_includedir}/%{name}
