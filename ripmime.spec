@@ -13,7 +13,6 @@ Source0:	http://www.pldaniels.com/ripmime/%{name}-%{version}.tar.gz
 Patch0:		ripmime-shared.diff
 BuildRequires:	libtool
 BuildRequires:	ripole-devel
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 
 %description
 ripMIME is a small program which has been developed as part of the
