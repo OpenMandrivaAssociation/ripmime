@@ -5,7 +5,7 @@
 Summary:	Extracts attachments out of mailpack format emails
 Name:		ripmime
 Version:	1.4.0.7
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	BSD
 Group:		Networking/Mail
 URL:		http://www.pldaniels.com/ripmime/
@@ -13,7 +13,7 @@ Source0:	http://www.pldaniels.com/ripmime/%{name}-%{version}.tar.gz
 Patch0:		ripmime-shared.diff
 BuildRequires:	libtool
 BuildRequires:	ripole-devel
-BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 ripMIME is a small program which has been developed as part of the
@@ -62,10 +62,10 @@ This package provides development files for the %{name} library.
 
 %make \
     CFLAGS="$CFLAGS" \
-    libdir=%{_libdir}
+    libdir=%{_libdir} LDFLAGS="-Wl,--as-needed -Wl,--no-undefined"
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %makeinstall_std \
     bindir=%{_bindir} \
@@ -82,7 +82,7 @@ This package provides development files for the %{name} library.
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
