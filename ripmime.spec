@@ -4,7 +4,7 @@
 
 Summary:	Extracts attachments out of mailpack format emails
 Name:		ripmime
-Version:	1.4.0.8
+Version:	1.4.0.9
 Release:	%mkrel 1
 License:	BSD
 Group:		Networking/Mail
