@@ -5,7 +5,7 @@
 Summary:	Extracts attachments out of mailpack format emails
 Name:		ripmime
 Version:	1.4.0.9
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	BSD
 Group:		Networking/Mail
 URL:		http://www.pldaniels.com/ripmime/
@@ -60,9 +60,11 @@ This package provides development files for the %{name} library.
 %build
 %serverbuild
 
+export LDFLAGS="`rpm --eval %%configure|grep LDFLAGS|cut -d\\" -f2|sed -e 's/\$LDFLAGS\ //'`"
+    
 %make \
     CFLAGS="$CFLAGS" \
-    libdir=%{_libdir} LDFLAGS="-Wl,--as-needed -Wl,--no-undefined"
+    libdir=%{_libdir} LDFLAGS="$LDFLAGS"
 
 %install
 rm -rf %{buildroot}
