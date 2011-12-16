@@ -5,16 +5,15 @@
 Summary:	Extracts attachments out of mailpack format emails
 Name:		ripmime
 Version:	1.4.0.10
-Release:	%mkrel 1
+Release:	2
 License:	BSD
 Group:		Networking/Mail
 URL:		http://www.pldaniels.com/ripmime/
 Source0:	http://www.pldaniels.com/ripmime/%{name}-%{version}.tar.gz
 Patch0:		ripmime-shared.diff
 Patch1:		ripmime-1.4.0.10-buffer_overflow.diff
-BuildRequires:	libtool
+BuildRequires:	autoconf automake libtool
 BuildRequires:	ripole-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 ripMIME is a small program which has been developed as part of the
@@ -41,7 +40,7 @@ Summary:	Development files for the %{name} library
 Group:		Development/C
 Provides:	%{name}-devel = %{version}
 Provides:	lib%{name}-devel = %{version}
-Requires:	%{libname} = %{version}
+Requires:	%{libname} >= %{version}
 Obsoletes:	%{mklibname ripmime 1 -d}
 
 %description -n	%{develname}
@@ -60,11 +59,10 @@ This package provides development files for the %{name} library.
 %patch1 -p0
 
 %build
-%serverbuild
 
 %make \
-    CFLAGS="$CFLAGS" \
-    libdir=%{_libdir} LDFLAGS="$LDFLAGS"
+    CFLAGS="%{optflags}" \
+    libdir=%{_libdir} LDFLAGS="%{ldflags}"
 
 %install
 rm -rf %{buildroot}
@@ -75,32 +73,19 @@ rm -rf %{buildroot}
     libdir=%{_libdir} \
     mandir=%{_mandir}
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
+# cleanups
+rm -f %{buildroot}%{_libdir}/*.*a
 
 %files
-%defattr(-,root,root)
 %doc CHANGELOG CONTRIBUTORS INSTALL LICENSE README
 %{_bindir}/*
 %{_mandir}/man1/*
 
 %files -n %{libname}
-%defattr(-,root,root)
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc TODO
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/*.h
 %{_libdir}/*.so
-%{_libdir}/*.a
-%{_libdir}/*.la
