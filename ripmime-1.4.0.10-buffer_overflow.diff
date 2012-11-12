@@ -1,0 +1,11 @@
+--- MIME_headers.c	2009-04-30 08:14:37.000000000 +0200
++++ MIME_headers.c.oden	2011-06-28 18:18:59.365921948 +0200
+@@ -2243,7 +2243,7 @@ int MIMEH_parse_contentlocation( char *h
+ 		{
+ 			if (MIMEH_DNORMAL) LOGGER_log("%s:%d:MIME_parse_contentlocation:DEBUG: filename = %s\n", FL, p);
+ 			snprintf(hinfo->name, sizeof(hinfo->name),"%s",p);
+-			snprintf(hinfo->filename, sizeof(hinfo->name),"%s",p);
++			snprintf(hinfo->filename, sizeof(hinfo->filename),"%s",p);
+ 			FNFILTER_filter(hinfo->filename, _MIMEH_FILENAMELEN_MAX);
+ 			SS_push(&(hinfo->ss_filenames), hinfo->filename, strlen(hinfo->filename));
+ 
