@@ -8,7 +8,7 @@ Version:	1.4.0.10
 Release:	3
 License:	BSD
 Group:		Networking/Mail
-URL:		http://www.pldaniels.com/ripmime/
+URL:		https://www.pldaniels.com/ripmime/
 Source0:	http://www.pldaniels.com/ripmime/%{name}-%{version}.tar.gz
 Patch0:		ripmime-shared.diff
 Patch1:		ripmime-1.4.0.10-buffer_overflow.diff
